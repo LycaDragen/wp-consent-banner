@@ -142,7 +142,7 @@
       </div>
 
       <div id="minimizedIcon" role="button" aria-label="Open consent dialog">
-        <img src="${config.image}" alt="Consent Icon">
+        <img alt="Consent Icon">
       </div>
     `;
     
