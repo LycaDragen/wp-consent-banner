@@ -236,6 +236,13 @@ function wp_consent_banner_options_sanitize($input) {
         if (isset($input[$key])) {
             if (strpos($key, 'color_') === 0) {
                 $out[$key] = sanitize_hex_color($input[$key]);
+            } elseif ($key === 'image') {
+                // URL real (http/https/relativa); evita romper el atributo src en el front.
+                $out[$key] = esc_url_raw(trim($input[$key]));
+            } elseif (strpos($key, 'font_') === 0) {
+                // Solo tamaños tipo 16px, 1.2rem, 100%; si no coincide, vuelve al valor por defecto.
+                $val = trim($input[$key]);
+                $out[$key] = preg_match('/^\d{1,3}(\.\d{1,2})?(px|rem|em|%)$/', $val) ? $val : $def;
             } else {
                 $out[$key] = sanitize_text_field($input[$key]);
             }
